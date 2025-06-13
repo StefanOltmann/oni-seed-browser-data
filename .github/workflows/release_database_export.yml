@@ -75,12 +75,22 @@ jobs:
           asset_path: ./frostyplanet-data.zip
           asset_name: frostyplanet-data-${{ env.NOW }}.zip
           asset_content_type: application/zip
+      # Prehistoric Planet
+      - name: Upload prehistoric-data.zip to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./prehistoric-data.zip
+          asset_name: prehistoric-data-${{ env.NOW }}.zip
+          asset_content_type: application/zip
       # Clean up
       - name: Delete old releases
         uses: dev-drprasad/delete-older-releases@v0.3.4
         with:
-          keep_latest: 1
-          delete_tag_pattern: data-*
+          keep_latest: 5
+          delete_tag_pattern: *
           delete_tags: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
