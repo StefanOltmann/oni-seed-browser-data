@@ -22,6 +22,7 @@ jobs:
           curl --fail -H "API_KEY: $API_KEY" -o spacedout-data.zip https://ingest.mapsnotincluded.org/export/spacedout
           curl --fail -H "API_KEY: $API_KEY" -o spacedout-classic-data.zip https://ingest.mapsnotincluded.org/export/spacedout-classic
           curl --fail -H "API_KEY: $API_KEY" -o frostyplanet-data.zip https://ingest.mapsnotincluded.org/export/frostyplanet
+          curl --fail -H "API_KEY: $API_KEY" -o prehistoric-data.zip https://ingest.mapsnotincluded.org/export/prehistoric
       - name: set NOW
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
       - name: Create GitHub release
