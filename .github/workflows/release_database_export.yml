@@ -19,10 +19,8 @@ jobs:
           API_KEY: ${{ secrets.DATABASE_EXPORT_API_KEY }}
         run: |
           curl --fail -H "API_KEY: $API_KEY" -o basegame-data.zip https://ingest.mapsnotincluded.org/export/basegame
+          curl --fail -H "API_KEY: $API_KEY" -o classic-data.zip https://ingest.mapsnotincluded.org/export/classic
           curl --fail -H "API_KEY: $API_KEY" -o spacedout-data.zip https://ingest.mapsnotincluded.org/export/spacedout
-          curl --fail -H "API_KEY: $API_KEY" -o spacedout-classic-data.zip https://ingest.mapsnotincluded.org/export/spacedout-classic
-          curl --fail -H "API_KEY: $API_KEY" -o frostyplanet-data.zip https://ingest.mapsnotincluded.org/export/frostyplanet
-          curl --fail -H "API_KEY: $API_KEY" -o prehistoric-data.zip https://ingest.mapsnotincluded.org/export/prehistoric
       - name: set NOW
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
       - name: Create GitHub release
@@ -57,34 +55,14 @@ jobs:
           asset_name: spacedout-data-${{ env.NOW }}.zip
           asset_content_type: application/zip
       # Spaced Out Classic
-      - name: Upload spacedout-classic-data.zip to release
+      - name: Upload classic-data.zip to release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./spacedout-classic-data.zip
-          asset_name: spacedout-classic-data-${{ env.NOW }}.zip
-          asset_content_type: application/zip
-      # Frosty Planet
-      - name: Upload frostyplanet-data.zip to release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./frostyplanet-data.zip
-          asset_name: frostyplanet-data-${{ env.NOW }}.zip
-          asset_content_type: application/zip
-      # Prehistoric Planet
-      - name: Upload prehistoric-data.zip to release
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./prehistoric-data.zip
-          asset_name: prehistoric-data-${{ env.NOW }}.zip
+          asset_path: ./classic-data.zip
+          asset_name: classic-data-${{ env.NOW }}.zip
           asset_content_type: application/zip
       # Clean up
       - name: Delete old releases
