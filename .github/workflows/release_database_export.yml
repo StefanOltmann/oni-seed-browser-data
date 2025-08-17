@@ -3,7 +3,7 @@ name: Release database export
 on:
   schedule:
     # Run every day at midnight (00:00 UTC)
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * 6'
   workflow_dispatch:
 
 permissions:
