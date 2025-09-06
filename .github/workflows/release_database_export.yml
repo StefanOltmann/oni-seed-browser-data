@@ -19,7 +19,8 @@ jobs:
           API_KEY: ${{ secrets.DATABASE_EXPORT_API_KEY }}
         run: |
           curl --fail -H "API_KEY: $API_KEY" -o basegame-data.zip https://ingest.mapsnotincluded.org/export/basegame
-          curl --fail -H "API_KEY: $API_KEY" -o classic-data.zip https://ingest.mapsnotincluded.org/export/classic
+          curl --fail -H "API_KEY: $API_KEY" -o classic-1-data.zip https://ingest.mapsnotincluded.org/export/classic_1
+          curl --fail -H "API_KEY: $API_KEY" -o classic-2-data.zip https://ingest.mapsnotincluded.org/export/classic_2
           curl --fail -H "API_KEY: $API_KEY" -o spacedout-data.zip https://ingest.mapsnotincluded.org/export/spacedout
       - name: set NOW
         run: echo "NOW=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
@@ -55,14 +56,23 @@ jobs:
           asset_name: spacedout-data-${{ env.NOW }}.zip
           asset_content_type: application/zip
       # Spaced Out Classic
-      - name: Upload classic-data.zip to release
+      - name: Upload classic-1-data.zip to release
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./classic-data.zip
-          asset_name: classic-data-${{ env.NOW }}.zip
+          asset_path: ./classic-1-data.zip
+          asset_name: classic-1-data-${{ env.NOW }}.zip
+          asset_content_type: application/zip
+      - name: Upload classic-2-data.zip to release
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ./classic-2-data.zip
+          asset_name: classic-2-data-${{ env.NOW }}.zip
           asset_content_type: application/zip
       # Clean up
       - name: Delete old releases
