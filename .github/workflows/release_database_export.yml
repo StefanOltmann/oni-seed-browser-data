@@ -32,7 +32,7 @@ jobs:
         with:
           tag_name: "${{ env.NOW }}"
           release_name: "Data ${{ env.NOW }} "
-          body: "Export of collected ONI maps in Protobuf format."
+          body: "Export of collected Oxygen Not Included map data in Protobuf format."
           draft: false
           prerelease: false
       # Basegame
